@@ -9,7 +9,7 @@ const config: Config = {
   },
   swagger: {
     enabled: true,
-    title: 'Nestjs FTW',
+    title: 'Nestjs prisma',
     description: 'The nestjs API description',
     version: '1.5',
     path: 'api',
@@ -21,7 +21,7 @@ const config: Config = {
     sortSchema: true,
   },
   security: {
-    expiresIn: '2m',
+    expiresIn: '30m',
     refreshIn: '7d',
     bcryptSaltOrRound: 10,
   },

@@ -1,9 +1,7 @@
-import 'reflect-metadata';
-import { ObjectType, HideField, Field } from '@nestjs/graphql';
-import { BaseModel } from 'src/common/models/base.model';
+import { InputType, Field } from '@nestjs/graphql';
 
-@ObjectType()
-export class User extends BaseModel {
+@InputType()
+export class CreateUserInput {
   @Field()
   wx_id?: string;
 
@@ -14,16 +12,13 @@ export class User extends BaseModel {
   openid?: string;
 
   @Field()
-  username?: string;
-
-  @Field()
   nickname?: string;
 
   @Field()
   avatar?: string;
 
   @Field()
-  phone: string;
+  phone?: string;
 
   @Field()
   backup_phone?: string;
@@ -50,14 +45,11 @@ export class User extends BaseModel {
   city?: string;
 
   @Field()
-  car_number?: string;
+  car_numbe?: string;
 
   @Field()
   car_message?: string;
 
   @Field(() => String, { nullable: false })
   status: string;
-
-  @HideField()
-  password?: string;
 }

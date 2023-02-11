@@ -14,14 +14,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/fivethree-team/nestjs-prisma-client-example.git"
+    "url": "https://github.com/kim-xie/nestjs-prisma-starter"
   },
   "bugs": {
-    "url": "https://github.com/fivethree-team/nestjs-prisma-client-example/issues"
+    "url": "https://github.com/kim-xie/nestjs-prisma-starter/issues"
   },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "commitlint": "commitlint --config commitlint.config.js -e -V",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -44,7 +46,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "start:db": "npm run migrate:up && npm run prisma:generate && npm run seed",
     "seed": "prisma db seed",
-    "postinstall": "npm run prisma:generate",
+    "postinstall": "npm run prisma:generate && husky install",
     "docker:migrate": "docker-compose -f docker-compose.migrate.yml up -d",
     "docker:db": "docker-compose -f docker-compose.db.yml up -d",
     "docker:seed": "docker exec -it nest-api npm run seed",
@@ -52,6 +54,8 @@
     "docker:build": "docker-compose build"
   },
   "dependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-angular": "^17.4.2",
     "@devoxa/prisma-relay-cursor-connection": "2.2.2",
     "@nestjs/apollo": "10.1.7",
     "@nestjs/common": "9.2.1",
@@ -70,6 +74,8 @@
     "graphql": "16.6.0",
     "graphql-scalars": "1.20.1",
     "graphql-subscriptions": "2.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.1",
     "nestjs-prisma": "0.20.0",
     "passport": "0.6.0",
     "passport-jwt": "4.0.1",

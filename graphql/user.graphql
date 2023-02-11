@@ -5,21 +5,31 @@ query Me {
 }
 
 mutation UpdateUser {
-  updateUser(data: { firstname: "Bart", lastname: "Simpson" }) {
-    ...UserData
-  }
-}
-
-mutation ChangePassword {
-  changePassword(data: { oldPassword: "secret42", newPassword: "secret42" }) {
+  updateUser(data: { phone: "18378311282" }) {
     ...UserData
   }
 }
 
 fragment UserData on User {
   id
-  email
-  firstname
-  lastname
-  role
+  username
+  nickname
+  wx_id
+  ali_id
+  openid
+  avatar
+  phone
+  backup_phone
+  enable_protect
+  enable_sms
+  enable_wechat
+  sex
+  country
+  province
+  city
+  car_number
+  car_message
+  status
+  created_at
+  updated_at
 }

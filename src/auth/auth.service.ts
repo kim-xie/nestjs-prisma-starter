@@ -33,7 +33,6 @@ export class AuthService {
         data: {
           ...payload,
           password: hashedPassword,
-          role: 'USER',
         },
       });
 
@@ -45,17 +44,17 @@ export class AuthService {
         e instanceof Prisma.PrismaClientKnownRequestError &&
         e.code === 'P2002'
       ) {
-        throw new ConflictException(`Email ${payload.email} already used.`);
+        throw new ConflictException(`${payload.username} already used.`);
       }
       throw new Error(e);
     }
   }
 
-  async login(email: string, password: string): Promise<Token> {
-    const user = await this.prisma.user.findUnique({ where: { email } });
+  async login(username: string, password: string): Promise<Token> {
+    const user = await this.prisma.user.findUnique({ where: { username } });
 
     if (!user) {
-      throw new NotFoundException(`No user found for email: ${email}`);
+      throw new NotFoundException(`No user found for username: ${username}`);
     }
 
     const passwordValid = await this.passwordService.validatePassword(

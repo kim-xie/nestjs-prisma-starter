@@ -8,7 +8,7 @@ import type {
   CorsConfig,
   NestConfig,
   SwaggerConfig,
-} from 'src/common/configs/config.interface';
+} from './common/configs/config.interface';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -47,5 +47,14 @@ async function bootstrap() {
   }
 
   await app.listen(process.env.PORT || nestConfig.port || 3000);
+
+  const url = await app.getUrl();
+  if (url.toString().includes('[::1]')) {
+    url.replace('[::1]', 'localhost');
+  }
+
+  console.log(`Application is running on: ${url}`);
+  console.log(`Swagger is running on: ${url}/` + swaggerConfig.path || 'api');
+  console.log(`Graphql is running on: ${url}/` + 'graphql');
 }
 bootstrap();

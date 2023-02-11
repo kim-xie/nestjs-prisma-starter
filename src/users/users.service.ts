@@ -1,8 +1,6 @@
 import { PrismaService } from 'nestjs-prisma';
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PasswordService } from 'src/auth/password.service';
-import { ChangePasswordInput } from './dto/change-password.input';
-import { UpdateUserInput } from './dto/update-user.input';
 
 @Injectable()
 export class UsersService {
@@ -11,38 +9,34 @@ export class UsersService {
     private passwordService: PasswordService
   ) {}
 
-  updateUser(userId: string, newUserData: UpdateUserInput) {
-    return this.prisma.user.update({
-      data: newUserData,
+  // 查询所有用户
+  fetchUsers() {
+    return this.prisma.user.findMany();
+  }
+
+  // 查询用户详情
+  fetchUser(userId: string) {
+    return this.prisma.user.findUnique({
       where: {
         id: userId,
       },
     });
   }
 
-  async changePassword(
-    userId: string,
-    userPassword: string,
-    changePassword: ChangePasswordInput
-  ) {
-    const passwordValid = await this.passwordService.validatePassword(
-      changePassword.oldPassword,
-      userPassword
-    );
+  // 创建用户
+  createUser(newUserData: any) {
+    return this.prisma.user.create({
+      data: newUserData,
+    });
+  }
 
-    if (!passwordValid) {
-      throw new BadRequestException('Invalid password');
-    }
-
-    const hashedPassword = await this.passwordService.hashPassword(
-      changePassword.newPassword
-    );
-
+  // 更新用户
+  updateUser(userId: string, newUserData: any) {
     return this.prisma.user.update({
-      data: {
-        password: hashedPassword,
+      data: newUserData,
+      where: {
+        id: userId,
       },
-      where: { id: userId },
     });
   }
 }
