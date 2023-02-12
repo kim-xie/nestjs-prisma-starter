@@ -1,4 +1,4 @@
-import { ValidationPipe, Logger } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -10,7 +10,6 @@ import type {
   SwaggerConfig,
 } from './common/configs/config.interface';
 import { WinstonModule } from 'nest-winston';
-import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import LoggerConfig from './common/configs/logger.config';
 
 export const logger = WinstonModule.createLogger(LoggerConfig);
@@ -55,9 +54,6 @@ async function bootstrap() {
   await app.listen(process.env.PORT || nestConfig.port || 3000);
 
   const url = await app.getUrl();
-  if (url.toString().includes('[::1]')) {
-    url.replace('[::1]', 'localhost');
-  }
 
   logger.log(`Application is running on: ${url}`);
   logger.log(`Swagger is running on: ${url}/` + swaggerConfig.path || 'api');
