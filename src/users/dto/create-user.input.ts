@@ -24,13 +24,13 @@ export class CreateUserInput {
   backup_phone?: string;
 
   @Field()
-  enable_protect: boolean;
+  enable_protect?: boolean;
 
   @Field()
-  enable_sms: boolean;
+  enable_sms?: boolean;
 
   @Field()
-  enable_wechat: boolean;
+  enable_wechat?: boolean;
 
   @Field()
   sex?: string;
@@ -50,6 +50,6 @@ export class CreateUserInput {
   @Field()
   car_message?: string;
 
-  @Field(() => String, { nullable: false })
-  status: string;
+  @Field(() => String, { nullable: true })
+  status?: string;
 }

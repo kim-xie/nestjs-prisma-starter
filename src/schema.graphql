@@ -22,7 +22,10 @@ A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction.
 scalar JWT
 
 input LoginInput {
+  """密码，最小长度为8位"""
   password: String!
+
+  """用户名"""
   username: String!
 }
 
@@ -40,7 +43,10 @@ type Query {
 }
 
 input SignupInput {
+  """密码，最小长度为8位"""
   password: String!
+
+  """用户名"""
   username: String!
 }
 
@@ -73,29 +79,64 @@ input UpdateUserInput {
 }
 
 type User {
+  """支付宝ID"""
   ali_id: String
+
+  """头像"""
   avatar: String
+
+  """备用手机号"""
   backup_phone: String
+
+  """车主留言"""
   car_message: String
+
+  """车牌号"""
   car_number: String
+
+  """地区"""
   city: String
+
+  """国家"""
   country: String
 
-  """Identifies the date and time when the object was created."""
-  created_at: DateTime!
-  enable_protect: Boolean!
-  enable_sms: Boolean!
-  enable_wechat: Boolean!
-  id: ID!
-  nickname: String
-  openid: String
-  phone: String!
-  province: String
-  sex: String
-  status: String!
+  """创建时间"""
+  created_at: DateTime
 
-  """Identifies the date and time when the object was last updated."""
-  updated_at: DateTime!
+  """开启隐私保护"""
+  enable_protect: Boolean
+
+  """开启短信通知"""
+  enable_sms: Boolean
+
+  """开启微信通知"""
+  enable_wechat: Boolean
+  id: ID!
+
+  """昵称"""
+  nickname: String
+
+  """小程序ID"""
+  openid: String
+
+  """手机号"""
+  phone: String
+
+  """省份"""
+  province: String
+
+  """性别"""
+  sex: String
+
+  """状态"""
+  status: String
+
+  """更新时间"""
+  updated_at: DateTime
+
+  """用户名"""
   username: String
+
+  """微信ID"""
   wx_id: String
 }

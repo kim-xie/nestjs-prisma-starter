@@ -6,13 +6,12 @@ export abstract class BaseModel {
   id: string;
 
   @Field({
-    description: 'Identifies the date and time when the object was created.',
+    description: '创建时间',
   })
-  created_at: Date;
+  created_at?: Date;
 
   @Field({
-    description:
-      'Identifies the date and time when the object was last updated.',
+    description: '更新时间',
   })
-  updated_at: Date;
+  updated_at?: Date;
 }

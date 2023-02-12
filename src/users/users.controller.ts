@@ -22,10 +22,10 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get('/all')
-  @ApiOperation({ summary: 'Find all users' })
+  @ApiOperation({ summary: '分页查询用户列表' })
   @ApiResponse({
     status: 200,
-    description: 'The found users',
+    description: 'success',
   })
   @HttpCode(HttpStatus.OK)
   async fetchUsers() {
@@ -33,6 +33,12 @@ export class UsersController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: '根据id查询用户详情' })
+  @ApiResponse({
+    status: 200,
+    description: 'success',
+  })
+  @HttpCode(HttpStatus.OK)
   async fetchUser(@Param('id') id: string) {
     return await this.userService.fetchUser(id);
   }

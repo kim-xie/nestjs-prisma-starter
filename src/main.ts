@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -9,9 +9,14 @@ import type {
   NestConfig,
   SwaggerConfig,
 } from './common/configs/config.interface';
+import { WinstonModule } from 'nest-winston';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import LoggerConfig from './common/configs/logger.config';
+
+export const logger = WinstonModule.createLogger(LoggerConfig);
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { logger });
 
   // Validation
   app.useGlobalPipes(new ValidationPipe());
@@ -35,6 +40,7 @@ async function bootstrap() {
       .setTitle(swaggerConfig.title || 'Nestjs')
       .setDescription(swaggerConfig.description || 'The nestjs API description')
       .setVersion(swaggerConfig.version || '1.0')
+      .addBearerAuth()
       .build();
     const document = SwaggerModule.createDocument(app, options);
 
@@ -53,8 +59,8 @@ async function bootstrap() {
     url.replace('[::1]', 'localhost');
   }
 
-  console.log(`Application is running on: ${url}`);
-  console.log(`Swagger is running on: ${url}/` + swaggerConfig.path || 'api');
-  console.log(`Graphql is running on: ${url}/` + 'graphql');
+  logger.log(`Application is running on: ${url}`);
+  logger.log(`Swagger is running on: ${url}/` + swaggerConfig.path || 'api');
+  logger.log(`Graphql is running on: ${url}/` + 'graphql');
 }
 bootstrap();
