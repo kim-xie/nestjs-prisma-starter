@@ -53,10 +53,10 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT || nestConfig.port || 3000);
 
-  const url = await app.getUrl();
+  const appUrl = await app.getUrl();
 
-  logger.log(`Application is running on: ${url}`);
-  logger.log(`Swagger is running on: ${url}/` + swaggerConfig.path || 'api');
-  logger.log(`Graphql is running on: ${url}/` + 'graphql');
+  logger.log(`Application is running on: ${appUrl}`);
+  logger.log(`Swagger is running on: ${appUrl}/` + swaggerConfig.path || 'api');
+  logger.log(`Graphql is running on: ${appUrl}/` + 'graphql');
 }
 bootstrap();

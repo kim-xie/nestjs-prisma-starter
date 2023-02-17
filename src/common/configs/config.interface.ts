@@ -7,7 +7,7 @@ export interface Config {
 }
 
 export interface NestConfig {
-  port: number;
+  port: any;
 }
 
 export interface CorsConfig {

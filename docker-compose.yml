@@ -1,28 +1,28 @@
 version: '3.8'
 services:
-  nest-api:
-    container_name: nest-api
+  nest-prisma:
+    container_name: nest-prisma
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
     depends_on:
-      - postgres
+      - prisma-mysql
     env_file:
       - .env
 
-  postgres:
-    image: postgres:13
-    container_name: postgres
+  prisma-mysql:
+    image: mysql
+    container_name: prisma-mysql
     restart: always
     ports:
-      - '5432:5432'
+      - '3306:3306'
     env_file:
       - .env
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - mysqldata:/var/lib/mysql
 
 volumes:
-  postgres:
+  mysqldata:
     name: nest-db
